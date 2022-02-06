@@ -15,12 +15,17 @@ class MainTableViewController: UIViewController {
         return table
     }()
     
-    private var notes = ["1", "2", "3"]
+    private var notes = ["abc", "sosi", "chlen"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpUI()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.reloadData()
+
     }
 
     private func setUpUI() {
@@ -35,6 +40,7 @@ class MainTableViewController: UIViewController {
         
         view.addSubview(tableView)
         tableView.frame = view.bounds
+        
     }
 
     @objc func add() {
@@ -43,14 +49,19 @@ class MainTableViewController: UIViewController {
 }
 
 extension MainTableViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let note = notes[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = note
+        cell.textLabel?.text = notes[indexPath.row]
         return cell
     }
     
