@@ -67,6 +67,9 @@ extension MainTableViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailNoteViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
