@@ -9,6 +9,8 @@ import UIKit
 
 class MainTableViewController: UIViewController {
 
+    var output: MainInteractor?
+    
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
