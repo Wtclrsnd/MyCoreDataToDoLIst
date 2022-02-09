@@ -10,9 +10,11 @@ import UIKit
 
 final class Builder {
     
+    private let coreDataWorker: CoreDataWorker
+    
     func make() -> UINavigationController {
         let viewController = MainTableViewController()
-        let interactor = MainInteractor()
+        let interactor = MainInteractor(self.coreDataWorker)
         let presenter = MainPresenter()
         viewController.output = interactor
         interactor.output = presenter
@@ -20,5 +22,9 @@ final class Builder {
         
         let nav = UINavigationController(rootViewController: viewController)
         return nav
+    }
+    
+    init(_ worker: CoreDataWorker) {
+        self.coreDataWorker = worker
     }
 }

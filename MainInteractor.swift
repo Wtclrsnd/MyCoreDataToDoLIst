@@ -7,7 +7,26 @@
 
 import Foundation
 
-final class MainInteractor {
+typealias Notes = [Note]
+
+protocol MainPresenterInputProtocol: AnyObject {
+    func getAllNotes(_ notes: Notes)
+}
+
+final class MainInteractor: MainInteractorInputProtocol {
     
-    var output: MainPresenter?
+    var output: MainPresenterInputProtocol?
+    
+    private var worker: CoreDataWorker
+    
+    func getNotesRawData(name: String, text: String) {
+        print(name)
+        worker.saveNewNote(name: name, text: text)
+    }
+    
+    init(_ worker: CoreDataWorker) {
+        self.worker = worker
+    }
+    
+    
 }

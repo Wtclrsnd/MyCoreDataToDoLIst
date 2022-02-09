@@ -7,7 +7,18 @@
 
 import Foundation
 
-final class MainPresenter {
+protocol MainTableViewControllerInputProtocol: AnyObject {
+    func passNewNote(name: String, text: String)
+}
+
+final class MainPresenter: MainPresenterInputProtocol {
     
-    weak var output: MainTableViewController?
+    weak var output: MainTableViewControllerInputProtocol?
+
+    
+    func getAllNotes(_ notes: Notes) {
+        var gotNotes = notes.compactMap { (name: $0.name, text: $0.text) }
+//        output.
+    }
+    
 }

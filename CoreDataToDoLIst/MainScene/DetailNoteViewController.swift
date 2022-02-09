@@ -9,6 +9,8 @@ import UIKit
 
 class DetailNoteViewController: UIViewController {
     
+    weak var delegate: MainTableViewControllerDelegate?
+    
     private lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +49,7 @@ class DetailNoteViewController: UIViewController {
         
         stack.frame = view.bounds
         
-        textField.heightAnchor.constraint(equalToConstant: 50)
+//        textField.heightAnchor.constraint(equalToConstant: 50)
         stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         stack.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stack.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -64,7 +66,13 @@ class DetailNoteViewController: UIViewController {
     }
 
     @objc private func save() {
-        navigationController?.popViewController(animated: true)
+        if textField.text == "" && textView.text == "" {
+            navigationController?.popViewController(animated: true)
+        } else {
+            delegate?.passNote(name: textField.text!, text: textView.text)
+            navigationController?.popViewController(animated: true)
+        }
     }
+    
 
 }
