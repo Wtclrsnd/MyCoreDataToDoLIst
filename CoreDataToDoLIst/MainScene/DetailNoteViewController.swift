@@ -11,6 +11,10 @@ class DetailNoteViewController: UIViewController {
     
     weak var delegate: MainTableViewControllerDelegate?
     
+    var isExisting: Bool?
+    
+    var currentNote: Note?
+    
     private lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +24,7 @@ class DetailNoteViewController: UIViewController {
         return stack
     }()
     
-    private lazy var textField: UITextField = {
+    lazy var textField: UITextField = {
         let textField = UITextField()
         textField.font = .boldSystemFont(ofSize: 40)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
@@ -29,7 +33,7 @@ class DetailNoteViewController: UIViewController {
         return textField
     }()
     
-    private lazy var textView: UITextView = {
+    lazy var textView: UITextView = {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 30)
         textView.backgroundColor = .systemBackground
@@ -69,8 +73,13 @@ class DetailNoteViewController: UIViewController {
         if textField.text == "" && textView.text == "" {
             navigationController?.popViewController(animated: true)
         } else {
-            delegate?.passNote(name: textField.text!, text: textView.text)
-            navigationController?.popViewController(animated: true)
+            if isExisting! {
+                delegate?.passNote(note: currentNote!, newName: textField.text!, newText: textView.text)
+                navigationController?.popViewController(animated: true)
+            } else {
+                delegate?.passNewNote(name: textField.text!, text: textView.text)
+                navigationController?.popViewController(animated: true)
+            }
         }
     }
     

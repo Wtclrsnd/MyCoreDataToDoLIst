@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MainTableViewControllerInputProtocol: AnyObject {
-    func passNewNote(name: String, text: String)
+    func passNotes(notes: Notes)
 }
 
 final class MainPresenter: MainPresenterInputProtocol {
@@ -17,7 +17,8 @@ final class MainPresenter: MainPresenterInputProtocol {
 
     
     func getAllNotes(_ notes: Notes) {
-        var gotNotes = notes.compactMap { (name: $0.name, text: $0.text) }
+//        var gotNotes = notes.compactMap { (name: $0.name!, text: $0.text!) } 
+        output?.passNotes(notes: notes)
 //        output.
     }
     

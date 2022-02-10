@@ -9,10 +9,13 @@ import UIKit
 
 protocol MainInteractorInputProtocol: AnyObject {
     func getNotesRawData(name: String, text: String)
+    func updateNote(note: Note, newName: String, newText: String)
+    func getAllNotes()
 }
 
 protocol MainTableViewControllerDelegate: AnyObject {
-    func passNote(name: String, text: String)
+    func passNewNote(name: String, text: String)
+    func passNote(note: Note, newName: String, newText: String)
 }
 
 class MainTableViewController: UIViewController, MainTableViewControllerInputProtocol, MainTableViewControllerDelegate {
@@ -25,7 +28,7 @@ class MainTableViewController: UIViewController, MainTableViewControllerInputPro
         return table
     }()
     
-    private var notes = [Note]()
+    private var allNotes = Notes()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,7 @@ class MainTableViewController: UIViewController, MainTableViewControllerInputPro
         
         tableView.delegate = self
         tableView.dataSource = self
+        output?.getAllNotes()
         tableView.reloadData()
         
 //        output?.getNotesRawData(name: "1", text: "abc")
@@ -53,19 +57,35 @@ class MainTableViewController: UIViewController, MainTableViewControllerInputPro
         tableView.frame = view.bounds
         
     }
+    
+    /// displays all stored notes
+    func passNotes(notes: Notes) {
+        allNotes = notes
+        tableView.reloadData()
+    }
+    
+    /// gets all stored notes from Core Data
+    func getAllNotes() {
+        output?.getAllNotes()
+    }
 
     @objc func add() {
         let vc = DetailNoteViewController()
         vc.delegate = self
+        vc.isExisting = false
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    /// here we get a new note and store it to Core Data
     func passNewNote(name: String, text: String) {
-        
+        output?.getNotesRawData(name: name, text: text)
+        output?.getAllNotes()
     }
     
-    func passNote(name: String, text: String) {
-        output?.getNotesRawData(name: name, text: text)
+    /// update selected note
+    func passNote(note: Note, newName: String, newText: String) {
+        output?.updateNote(note: note, newName: newName, newText: newText)
+        output?.getAllNotes()
     }
 }
 
@@ -77,18 +97,22 @@ extension MainTableViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notes.count
+        return allNotes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = notes[indexPath.row].name
+        cell.textLabel?.text = allNotes[indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailNoteViewController()
         vc.delegate = self
+        vc.isExisting = true
+        vc.currentNote = allNotes[indexPath.row]
+        vc.textField.text = allNotes[indexPath.row].name
+        vc.textView.text = allNotes[indexPath.row].text
         navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -11,7 +11,7 @@ import CoreData
 final class CoreDataWorker {
 
     private lazy var persistentContainer: NSPersistentContainer = {
-          let container = NSPersistentContainer(name: "SavingLearn")
+          let container = NSPersistentContainer(name: "CoreDataToDoLIst")
           container.loadPersistentStores(completionHandler: { (storeDescription, error) in
               if let error = error as NSError? {
                   fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -25,10 +25,10 @@ final class CoreDataWorker {
       }()
     
     func getAllNotes() -> Notes {
-        let notes = Notes()
+        var notes = Notes()
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         do {
-            let notes = try context.fetch(fetchRequest)
+            notes = try context.fetch(fetchRequest)
         } catch {
             print(error)
         }
@@ -40,11 +40,16 @@ final class CoreDataWorker {
         let newItem = Note(context: context)
         newItem.name = name
         newItem.text = text
-        print(name)
         saveContext()
     }
     
-    func saveContext () {
+    func updateNote(note: Note, newName: String, newText: String) {
+        note.name = newName
+        note.text = newText
+        saveContext()
+    }
+    
+    func saveContext() {
           if context.hasChanges {
               do {
                   try context.save()

@@ -19,14 +19,21 @@ final class MainInteractor: MainInteractorInputProtocol {
     
     private var worker: CoreDataWorker
     
-    func getNotesRawData(name: String, text: String) {
-        print(name)
-        worker.saveNewNote(name: name, text: text)
-    }
-    
+   
     init(_ worker: CoreDataWorker) {
         self.worker = worker
     }
     
+    func getNotesRawData(name: String, text: String) {
+        worker.saveNewNote(name: name, text: text)
+    }
     
+    func updateNote(note: Note, newName: String, newText: String) {
+        worker.updateNote(note: note, newName: newName, newText: newText)
+    }
+    
+    func getAllNotes() {
+        var notes = worker.getAllNotes()
+        output?.getAllNotes(notes)
+    }
 }
