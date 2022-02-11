@@ -19,7 +19,6 @@ final class MainInteractor: MainInteractorInputProtocol {
     
     private var worker: CoreDataWorker
     
-   
     init(_ worker: CoreDataWorker) {
         self.worker = worker
     }
@@ -37,7 +36,7 @@ final class MainInteractor: MainInteractorInputProtocol {
     }
     
     func getAllNotes() {
-        var notes = worker.getAllNotes()
+        let notes = worker.getAllNotes()
         output?.getAllNotes(notes)
     }
 }

@@ -8,29 +8,31 @@
 import Foundation
 import CoreData
 
-final class CoreDataWorker {
+//core data worker protocol
 
+final class CoreDataWorker {
+    
     private lazy var persistentContainer: NSPersistentContainer = {
-          let container = NSPersistentContainer(name: "CoreDataToDoLIst")
-          container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-              if let error = error as NSError? {
-                  fatalError("Unresolved error \(error), \(error.userInfo)")
-              }
-          })
-          return container
-      }()
+        let container = NSPersistentContainer(name: "CoreDataToDoLIst")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
     
     private lazy var context: NSManagedObjectContext = {
         return persistentContainer.viewContext
-      }()
+    }()
     
     func getAllNotes() -> Notes {
         var notes = Notes()
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         do {
             notes = try context.fetch(fetchRequest)
-        } catch {
-            print(error)
+        } catch let error as NSError {
+            print(error.userInfo)
         }
         
         return notes
@@ -54,15 +56,14 @@ final class CoreDataWorker {
         saveContext()
     }
     
-    func saveContext() {
-          if context.hasChanges {
-              do {
-                  try context.save()
-              } catch {
+    private func saveContext() {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch let error as NSError {
                 context.rollback()
-                  let nserror = error as NSError
-                  fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-              }
-          }
-      }
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+    }
 }

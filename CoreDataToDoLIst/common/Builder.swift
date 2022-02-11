@@ -14,7 +14,7 @@ final class Builder {
     
     func make() -> UINavigationController {
         let viewController = MainTableViewController()
-        let interactor = MainInteractor(self.coreDataWorker)
+        let interactor = MainInteractor(coreDataWorker)
         let presenter = MainPresenter()
         viewController.output = interactor
         interactor.output = presenter

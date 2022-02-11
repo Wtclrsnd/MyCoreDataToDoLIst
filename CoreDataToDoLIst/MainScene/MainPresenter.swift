@@ -14,12 +14,9 @@ protocol MainTableViewControllerInputProtocol: AnyObject {
 final class MainPresenter: MainPresenterInputProtocol {
     
     weak var output: MainTableViewControllerInputProtocol?
-
     
     func getAllNotes(_ notes: Notes) {
-//        var gotNotes = notes.compactMap { (name: $0.name!, text: $0.text!) } 
         output?.passNotes(notes: notes)
-//        output.
     }
     
 }

@@ -21,7 +21,7 @@ protocol MainTableViewControllerDelegate: AnyObject {
 }
 
 class MainTableViewController: UIViewController, MainTableViewControllerInputProtocol, MainTableViewControllerDelegate {
-
+    
     var output: MainInteractorInputProtocol?
     
     private lazy var tableView: UITableView = {
@@ -42,18 +42,18 @@ class MainTableViewController: UIViewController, MainTableViewControllerInputPro
         output?.getAllNotes()
         tableView.reloadData()
         
-//        output?.getNotesRawData(name: "1", text: "abc")
+        //        output?.getNotesRawData(name: "1", text: "abc")
     }
-
+    
     private func setUpUI() {
         
         view.backgroundColor = .systemBackground
         
         let rightItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(add))
-        self.navigationItem.rightBarButtonItem = rightItem
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = rightItem
+        navigationController?.navigationBar.prefersLargeTitles = true
         title = "Notes"
-        self.navigationController?.navigationBar.tintColor = .systemPink
+        navigationController?.navigationBar.tintColor = .systemPink
         
         view.addSubview(tableView)
         tableView.frame = view.bounds
@@ -71,7 +71,7 @@ class MainTableViewController: UIViewController, MainTableViewControllerInputPro
         output?.getAllNotes()
         tableView.reloadData()
     }
-
+    
     @objc func add() {
         let vc = DetailNoteViewController()
         vc.delegate = self
@@ -120,7 +120,7 @@ extension MainTableViewController: UITableViewDelegate, UITableViewDataSource {
         vc.isExisting = true
         vc.currentNote = allNotes[indexPath.row]
         vc.textField.text = allNotes[indexPath.row].name
-        vc.textView.text = allNotes[indexPath.row].text
+        vc.textView.text = allNotes[indexPath.row].text //u can make a method in detailVC to pass data
         navigationController?.pushViewController(vc, animated: true)
     }
     
