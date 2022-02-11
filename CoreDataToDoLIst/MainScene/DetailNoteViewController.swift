@@ -71,6 +71,9 @@ class DetailNoteViewController: UIViewController {
 
     @objc private func save() {
         if textField.text == "" && textView.text == "" {
+            if isExisting == true {
+                delegate?.deleteNote(note: currentNote!)
+            }
             navigationController?.popViewController(animated: true)
         } else {
             if isExisting! {

@@ -49,6 +49,11 @@ final class CoreDataWorker {
         saveContext()
     }
     
+    func deleteNote(note: Note) {
+        context.delete(note)
+        saveContext()
+    }
+    
     func saveContext() {
           if context.hasChanges {
               do {

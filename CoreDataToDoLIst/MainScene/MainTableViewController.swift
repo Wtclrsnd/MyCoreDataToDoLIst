@@ -10,12 +10,14 @@ import UIKit
 protocol MainInteractorInputProtocol: AnyObject {
     func getNotesRawData(name: String, text: String)
     func updateNote(note: Note, newName: String, newText: String)
+    func deleteNote(note: Note)
     func getAllNotes()
 }
 
 protocol MainTableViewControllerDelegate: AnyObject {
     func passNewNote(name: String, text: String)
     func passNote(note: Note, newName: String, newText: String)
+    func deleteNote(note: Note)
 }
 
 class MainTableViewController: UIViewController, MainTableViewControllerInputProtocol, MainTableViewControllerDelegate {
@@ -67,6 +69,7 @@ class MainTableViewController: UIViewController, MainTableViewControllerInputPro
     /// gets all stored notes from Core Data
     func getAllNotes() {
         output?.getAllNotes()
+        tableView.reloadData()
     }
 
     @objc func add() {
@@ -85,6 +88,11 @@ class MainTableViewController: UIViewController, MainTableViewControllerInputPro
     /// update selected note
     func passNote(note: Note, newName: String, newText: String) {
         output?.updateNote(note: note, newName: newName, newText: newText)
+        output?.getAllNotes()
+    }
+    
+    func deleteNote(note: Note) {
+        output?.deleteNote(note: note)
         output?.getAllNotes()
     }
 }
@@ -115,5 +123,14 @@ extension MainTableViewController: UITableViewDelegate, UITableViewDataSource {
         vc.textView.text = allNotes[indexPath.row].text
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            allNotes.remove(at: indexPath.row)
+            output?.deleteNote(note: allNotes[indexPath.row])
+            output?.getAllNotes()
+            tableView.reloadData()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
-

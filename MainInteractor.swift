@@ -32,6 +32,10 @@ final class MainInteractor: MainInteractorInputProtocol {
         worker.updateNote(note: note, newName: newName, newText: newText)
     }
     
+    func deleteNote(note: Note) {
+        worker.deleteNote(note: note)
+    }
+    
     func getAllNotes() {
         var notes = worker.getAllNotes()
         output?.getAllNotes(notes)
