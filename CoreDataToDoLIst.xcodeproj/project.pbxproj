@@ -38,8 +38,8 @@
 		726F374927B02591007F38FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		726F374B27B02591007F38FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7286619527B2D7E600DEEFE4 /* CoreDataWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataWorker.swift; sourceTree = "<group>"; };
-		728661A527B2F71E00DEEFE4 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		728661A627B2F71F00DEEFE4 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		728661A527B2F71E00DEEFE4 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataClass.swift"; path = "CoreDataToDoLIst/CoreDataClass/Note+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		728661A627B2F71F00DEEFE4 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "CoreDataToDoLIst/CoreDataClass/Note+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,13 +82,10 @@
 		726F373927B0258E007F38FB /* CoreDataToDoLIst */ = {
 			isa = PBXGroup;
 			children = (
-				728661A527B2F71E00DEEFE4 /* Note+CoreDataClass.swift */,
-				728661A627B2F71F00DEEFE4 /* Note+CoreDataProperties.swift */,
-				726F373A27B0258E007F38FB /* AppDelegate.swift */,
-				726F373C27B0258E007F38FB /* SceneDelegate.swift */,
-				7232503B27B2AD0200AD6231 /* Builder.swift */,
+				7297589427B66D5E0062B78A /* CoreDataClass */,
+				7297589327B66D4F0062B78A /* common */,
 				7232503D27B2B80E00AD6231 /* DetailNoteViewController.swift */,
-				7286619527B2D7E600DEEFE4 /* CoreDataWorker.swift */,
+				7297589227B66D3D0062B78A /* Worker */,
 				7211DD8B27B2A43200A854AE /* MainScene */,
 				726F374027B0258E007F38FB /* Main.storyboard */,
 				726F374827B02591007F38FB /* LaunchScreen.storyboard */,
@@ -97,6 +94,33 @@
 				726F374327B0258E007F38FB /* CoreDataToDoLIst.xcdatamodeld */,
 			);
 			path = CoreDataToDoLIst;
+			sourceTree = "<group>";
+		};
+		7297589227B66D3D0062B78A /* Worker */ = {
+			isa = PBXGroup;
+			children = (
+				7286619527B2D7E600DEEFE4 /* CoreDataWorker.swift */,
+			);
+			path = Worker;
+			sourceTree = "<group>";
+		};
+		7297589327B66D4F0062B78A /* common */ = {
+			isa = PBXGroup;
+			children = (
+				726F373A27B0258E007F38FB /* AppDelegate.swift */,
+				726F373C27B0258E007F38FB /* SceneDelegate.swift */,
+				7232503B27B2AD0200AD6231 /* Builder.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		7297589427B66D5E0062B78A /* CoreDataClass */ = {
+			isa = PBXGroup;
+			children = (
+				728661A527B2F71E00DEEFE4 /* Note+CoreDataClass.swift */,
+				728661A627B2F71F00DEEFE4 /* Note+CoreDataProperties.swift */,
+			);
+			path = CoreDataClass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

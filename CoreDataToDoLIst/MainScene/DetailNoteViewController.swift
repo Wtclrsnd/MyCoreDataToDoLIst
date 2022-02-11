@@ -53,7 +53,6 @@ class DetailNoteViewController: UIViewController {
         
         stack.frame = view.bounds
         
-//        textField.heightAnchor.constraint(equalToConstant: 50)
         stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         stack.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stack.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -61,7 +60,6 @@ class DetailNoteViewController: UIViewController {
         stack.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         
         view.backgroundColor = .systemBackground
-//        textView.backgroundColor = .systemBackground
         
         let rightItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(save))
         self.navigationItem.rightBarButtonItem = rightItem
